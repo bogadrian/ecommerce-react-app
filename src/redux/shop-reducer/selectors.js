@@ -9,11 +9,21 @@ export const selectorShopData = createSelector(
 
 export const selectorArrayForPreviewMap = createSelector(
   [selectorShopData],
-  collection => Object.keys(collection).map(key => collection[key])
+  collection =>
+    collection ? Object.keys(collection).map(key => collection[key]) : []
 );
 
 export const selectorCollection = collectionParmUrl =>
-  createSelector(
-    [selectorShopData],
-    collection => collection[collectionParmUrl]
+  createSelector([selectorShopData], collection =>
+    collection ? collection[collectionParmUrl] : null
   );
+
+export const selectorIsFetching = createSelector(
+  [selectData],
+  shopData => shopData.isFetching
+);
+
+export const selectorIsFetchingTrue = createSelector(
+  [selectData],
+  shopData => !!shopData.collection
+);

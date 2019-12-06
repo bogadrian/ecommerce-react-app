@@ -6,7 +6,7 @@ import CollectionItem from '../../componenets/collection-item/collection-item.co
 
 import './collection.style.scss';
 
-const CollectionPage = ({ match, collectionItem }) => {
+const CollectionPage = ({ collectionItem }) => {
   const { title, items } = collectionItem;
   return (
     <div className="collection-page">

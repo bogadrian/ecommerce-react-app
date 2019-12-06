@@ -1,13 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import FormInput from '../input-form/input-form.component';
 import CustomButton from '../custom-button/custom-button.component';
 
-import { auth, createUserDocProfile } from '../../firebase/firebase.utils';
+import { SignUp } from '../../redux/user-reducer/user.action';
 
 import './sign-up.style.scss';
 
-class SignUp extends React.Component {
+class SignUpComponent extends React.Component {
   constructor() {
     super();
 
@@ -30,17 +31,12 @@ class SignUp extends React.Component {
     }
 
     try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-      await createUserDocProfile(user, { displayName });
+      const { SignUp } = this.props;
 
-      this.setState({
-        displayName: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
+      SignUp({
+        email,
+        password,
+        displayName
       });
     } catch (err) {
       console.log(err);
@@ -98,4 +94,8 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+const mapDispatchToProps = dispatch => ({
+  SignUp: objFileds => dispatch(SignUp(objFileds))
+});
+
+export default connect(null, mapDispatchToProps)(SignUpComponent);

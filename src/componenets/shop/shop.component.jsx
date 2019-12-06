@@ -1,15 +1,42 @@
 import React from 'react';
-import CollectionOverview from '../collection-overview/collection-overview.component';
+
 import { Route } from 'react-router-dom';
-import CollectionPage from '../../pages/collection/collection.component';
+import { connect } from 'react-redux';
 
-const ShopPage = ({ match }) => {
-  return (
-    <div className="shop-page">
-      <Route exact path={`${match.path}`} component={CollectionOverview} />
-      <Route path={`${match.path}/:collectionId`} component={CollectionPage} />
-    </div>
-  );
-};
+import { startFetch } from '../../redux/shop-reducer/shop-actions';
 
-export default ShopPage;
+import CollectionOverviewWithSpinner from '../collection-overview/collection-overview.container';
+import CollectionPageWithSpinner from '../../pages/collection/collection.container';
+
+class ShopPage extends React.Component {
+  unsubscribeFromSnapShotData = null;
+
+  componentDidMount() {
+    const { startFetch } = this.props;
+    startFetch();
+  }
+
+  render() {
+    const { match } = this.props;
+
+    return (
+      <div className="shop-page">
+        <Route
+          exact
+          path={`${match.path}`}
+          component={CollectionOverviewWithSpinner}
+        />
+        <Route
+          path={`${match.path}/:collectionId`}
+          component={CollectionPageWithSpinner}
+        />
+      </div>
+    );
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  startFetch: () => dispatch(startFetch())
+});
+
+export default connect(null, mapDispatchToProps)(ShopPage);

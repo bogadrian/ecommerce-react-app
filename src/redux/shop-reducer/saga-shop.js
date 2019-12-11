@@ -10,8 +10,6 @@ import { fetchSuccess, fetchError } from './shop-actions';
 import ActionShopData from './actions-utilis';
 
 export function* fetchCollectionStartAsync() {
-  yield console.log('I am fired');
-
   try {
     const collectionRef = firestore.collection('collection');
     const snapshot = yield collectionRef.get();

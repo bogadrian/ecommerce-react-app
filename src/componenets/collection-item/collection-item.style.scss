@@ -6,6 +6,10 @@
   align-items: center;
   position: relative;
 
+  @media (max-width: 800px) {
+    width: 40vw;
+  }
+
   .image {
     width: 100%;
     height: 95%;

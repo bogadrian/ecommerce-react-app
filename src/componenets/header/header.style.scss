@@ -15,6 +15,11 @@
     height: 100%;
     width: 70px;
     padding: 25px;
+
+    @media screen and (max-width: 800px) {
+      width: 30px;
+      padding: 0;
+    }
   }
 
   .options {
@@ -24,8 +29,10 @@
     align-items: center;
     justify-content: flex-end;
 
-    @media screen and (max-width: 800px) {
-      width: 80px;
+    @media screen and (max-width: 900px) {
+      width: 80%;
+      padding: 10px;
+      margin-bottom: 30px;
     }
     .option {
       padding: 10px 15px;
